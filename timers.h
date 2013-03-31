@@ -10,6 +10,10 @@ typedef struct {} * handle;
 
 #define REPEAT_INFINITELY (-1)
 #define TIMER_RESOLUTION_MS 10
+#ifndef NULL
+  #define NULL 0
+#endif
+#define OPTIONAL(default_value)
 
 
 /**
@@ -33,14 +37,14 @@ void timers_close();
  * @param repeat How many times to execute <foo>. Can be changed from within <foo>.
  * @return Handle to schedule record of NULL if invalid arguments were supplied. Can be used by {@link timers_cancel} to cancel particular schedule.
  */
-handle timers_schedule(DeferredFunction foo, int period_ms, void* data = NULL, int repeat = REPEAT_INFINITELY);
+handle timers_schedule(DeferredFunction foo, int period_ms, OPTIONAL(NULL) void* data, OPTIONAL(REPEAT_INFINITELY) int repeat);
 
 /**
  * Cancel single schedule
  * @param schedule Handle to a schedule returned by previous call to {@link timers_schedule}
  * @return True if given schedule was found and successfully canceled.
  */
-bool timers_cancel(handle schedule);
+char timers_cancel(handle schedule);
 
 
 #endif
